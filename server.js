@@ -6,21 +6,18 @@ const port = process.env.PORT || 3000
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));
-// app.get('/', (req, res) => {
-//     res.send({
-//         name: 'sourabh',
-//         likes: [
-//             'food',
-//             'travel'
-//         ]
-//     });
-// });
+
 hbs.registerHelper('getCurrentYear', () => {
     return new Date().getFullYear();
-    //return 'blah';
-})
+});
+
+hbs.registerHelper('getProjectsMsg', (text) => {
+    return 'Hello '+ text;
+});
+
 app.get('/', (req, res) => {
     res.render('welcome.hbs', {
+        pageTitle: 'Welcome',
         welcomeMsg: 'We would like to welcome you.',
         year: new Date().getFullYear()
     })
@@ -28,7 +25,13 @@ app.get('/', (req, res) => {
 
 app.get('/about', (req, res) => {
     res.render('about.hbs', {
-        year: new Date().getFullYear()
+        pageTitle: 'About'
+    });
+});
+
+app.get('/projects', (req, res) => {
+    res.render('projects.hbs', {
+        pageTitle: 'Projects',
     });
 });
 
